@@ -774,6 +774,11 @@ func mapToXmlIndent(doIndent bool, s *string, key string, value interface{}, pp 
 		*s += `<` + key
 	}
 	switch value.(type) {
+	case []map[string]interface{}:
+		for _, v := range value.([]map[string]interface{}) {
+			mapToXmlIndent(doIndent, s, key, v, p)
+		}
+		return nil
 	case map[string]interface{}:
 		vv := value.(map[string]interface{})
 		lenvv := len(vv)
